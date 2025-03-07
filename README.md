@@ -1,4 +1,4 @@
-# SSET - Shell 脚本加密工厔
+# SSET - Shell 脚本加密工具
 
 Shell Script Encryption Tool
 
