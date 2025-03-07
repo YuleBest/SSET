@@ -1,38 +1,76 @@
-# SSET
+# SSET - Shell 脚本加密工厔
 
 Shell Script Encryption Tool
 
-Shell 脚本加密工具
+---
 
-> 加密混淆你的 Shell 脚本
+## 快速开始
+
+### 前置条件
+
+- Termux
+
+- 设备已开启存储权限
 
 ---
 
-# 使用方法
+### 环境配置
 
-1. 下载安装 Termux
+1. 创建项目目录并进入
 
-2. 新建文件夹 `/data/user/0/com.termux/files/home/SSET`，下载上方最新的 `SSET.sh`，放到刚刚的文件夹里面
-
-3. Termux 执行以下代码以配置环境：
-
-```shell
-cd SEET; chmod -R 755 .
-pkg update; pkg upgrade
+```bash
+mkdir -p $HOME/SSET && cd $HOME/SSET
 ```
 
-4. Termux 执行以下代码以安装必要工具：
+2. 下载最新版加密工具 `SSET.sh`
 
-> 若安装过程提示是否继续，请选择 `y`
+3. 配置执行权限
 
-```shell
-pkg install clang shc gzip base64
+```bash
+chmod 755 SSET.sh
 ```
 
-5. 用下面的代码执行一遍 `SSET.sh`，脚本会在脚本所在目录下生成一个 `source_sh/` 目录，把你需要加密的脚本放在这里面，然后再执行一遍即可开始加密：
+4. 安装依赖工具链
 
-```shell
+```bash
+pkg update -y && pkg install -y clang shc gzip base64
+```
+
+---
+
+### 首次使用流程
+
+1. 初始化加密环境
+
+```bash
 bash SSET.sh
 ```
 
-6. 之后只需要进行第 5 步即可
+工具自动生成 `source_sh/` 目录用于存放待加密脚本
+
+2. 放入待加密脚本，支持批量处理
+
+3. 再次运行脚本，自动触发加密流程：
+
+```bash
+bash SSET.sh
+```
+
+---
+
+### 后续使用
+
+仅需重复步骤2-3，每次更新待加密脚本后执行一次即可
+
+---
+
+## 加密原理
+
+### 五层防护流程
+
+```
+    A       -->      SHC 编译得到 ELF 文件
+    B       -->      GZIP 压缩得到压缩文件
+    C       -->      BASE64 编码
+    D       -->      生成自解密脚本
+```
