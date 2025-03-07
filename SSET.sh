@@ -5,7 +5,7 @@
 # Encryption for scripts that are offensive or illegal is strictly prohibited, otherwise all consequences are at your own expense!
 
 # 请根据实际情况修改 Shebang 行，需要解密方有此路径才能使用 bash 来解密脚本
-SHEBANG="#!/data/user/0/bin.mt.plus/files/term/bin/bash"
+SHEBANG="#!/data/user/0/com.termux/files/usr/bin/bash"
 
 clear; SDIR="$(dirname $(readlink -f $0))"; gr='\033[0;32m'; ye='\033[1;33m'; re='\033[0;31m'; res='\033[0m'
 
@@ -80,6 +80,7 @@ MAIN() {
     fi
 
     find "$S_SH_DIR" -type f -name '*.sh' -print0 | while IFS= read -r -d '' file; do
+        chmod +x "$file"
         if [[ "$(head -n 1 "$file")" != "$SHEBANG" ]]; then
             echo -n "- 添加 Shebang 行中...  "
             if echo "$SHEBANG" | cat - "$file" > "$file.temp" && mv "$file.temp" "$file" > /dev/null 2>&1; then
@@ -92,8 +93,9 @@ MAIN() {
         local real_filename="加密_$(basename "$file")"
 
         echo -n "- shc: 处理 $(basename "$file") 中...  "
-        if shc -f "$file" -o "$TEMP_DIR/$(basename "$file").elf" > /dev/null 2>&1; then
+        if shc -f "$file" -o "$TEMP_DIR/$(basename "$file").elf"; then
             echo -e "${gr}OK${res}"
+            chmod +x "$S_SH_DIR/$(basename "$file").x.c"
             mv "$S_SH_DIR/$(basename "$file").x.c" "$TEMP_DIR/$(basename "$file").c"
         else
             echo -e "${re}ERROR${res}"
