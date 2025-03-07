@@ -4,6 +4,9 @@
 # 严禁用于带有攻击性和违法的脚本的加密，否则一切后果由您自行承担！
 # Encryption for scripts that are offensive or illegal is strictly prohibited, otherwise all consequences are at your own expense!
 
+# 请根据实际情况修改 Shebang 行，需要解密方有此路径才能使用 bash 来解密脚本
+SHEBANG="#!/data/user/0/bin.mt.plus/files/term/bin/bash"
+
 clear; SDIR="$(dirname $(readlink -f $0))"; gr='\033[0;32m'; ye='\033[1;33m'; re='\033[0;31m'; res='\033[0m'
 
 S_SH_DIR="$SDIR/source_sh"
@@ -77,9 +80,9 @@ MAIN() {
     fi
 
     find "$S_SH_DIR" -type f -name '*.sh' -print0 | while IFS= read -r -d '' file; do
-        if [[ "$(head -n 1 "$file")" != '#!/data/user/0/bin.mt.plus/files/term/bin/bash' ]]; then
+        if [[ "$(head -n 1 "$file")" != "$SHEBANG" ]]; then
             echo -n "- 添加 Shebang 行中...  "
-            if echo '#!/data/user/0/bin.mt.plus/files/term/bin/bash' | cat - "$file" > "$file.temp" && mv "$file.temp" "$file" > /dev/null 2>&1; then
+            if echo "$SHEBANG" | cat - "$file" > "$file.temp" && mv "$file.temp" "$file" > /dev/null 2>&1; then
                 echo -e "${gr}OK${res}"
             else
                 echo -e "${re}ERROR${res}"
