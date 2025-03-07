@@ -20,23 +20,23 @@ Shell Script Encryption Tool
 
 1. 创建项目目录并进入
 
-```bash
-mkdir -p $HOME/SSET && cd $HOME/SSET
-```
+  ```bash
+  mkdir -p $HOME/SSET && cd $HOME/SSET
+  ```
 
 2. 下载最新版加密工具 `SSET.sh`
 
 3. 配置执行权限
 
-```bash
-chmod 755 SSET.sh
-```
+  ```bash
+  chmod 755 SSET.sh
+  ```
 
 4. 安装依赖工具链
 
-```bash
-pkg update -y && pkg install -y clang shc gzip base64
-```
+  ```bash
+  pkg update -y && pkg install -y clang shc gzip base64
+  ```
 
 ---
 
@@ -44,19 +44,19 @@ pkg update -y && pkg install -y clang shc gzip base64
 
 1. 初始化加密环境
 
-```bash
-bash SSET.sh
-```
+  ```bash
+  bash SSET.sh
+  ```
 
-工具自动生成 `source_sh/` 目录用于存放待加密脚本
+  工具自动生成 `source_sh/` 目录用于存放待加密脚本
 
 2. 放入待加密脚本，支持批量处理
 
 3. 再次运行脚本，自动触发加密流程：
 
-```bash
-bash SSET.sh
-```
+  ```bash
+  bash SSET.sh
+  ```
 
 ---
 
