@@ -71,12 +71,12 @@ MAIN() {
     mkdir "$S_SH_DIR" > /dev/null 2>&1
     mkdir "$TEMP_DIR" > /dev/null 2>&1
 
-    find "$S_SH_DIR" -type f -name '*.sh' -print0 | while IFS= read -r -d '' file; do
-        if [[ -z "$file" || "$file" == "" ]]; then
-            echo -e "${ye}- $S_SH_DIR 内没有 .sh 脚本文件${res}"
-            exit 0
-        fi
+    if [ ! -d "$S_SH_DIR" ] || [ -z "$(find "$S_SH_DIR" -maxdepth 1 -name '*.sh')" ]; then
+        echo -e "${ye}- 源目录不存在或没有.sh文件${res}"
+        exit 2
+    fi
 
+    find "$S_SH_DIR" -type f -name '*.sh' -print0 | while IFS= read -r -d '' file; do
         if [[ "$(head -n 1 "$file")" != '#!/data/user/0/bin.mt.plus/files/term/bin/bash' ]]; then
             echo -n "- 添加 Shebang 行中...  "
             if echo '#!/data/user/0/bin.mt.plus/files/term/bin/bash' | cat - "$file" > "$file.temp" && mv "$file.temp" "$file" > /dev/null 2>&1; then
